@@ -18,11 +18,10 @@ app.get("/", (req: Request, res: Response): void => {
 // Endpoint para criar agendamentos
 app.post('/create-appointments', [
   body('name').isString().notEmpty(),
-  body('car').isString().notEmpty(), // Adicione esta linha para o campo 'car'
-  body('placa').isString().notEmpty(), // Adicione esta linha para o campo 'placa'
-  body('inital-date').isISO8601(), // Alterado para 'inital-date'
-  body('final-Date').isISO8601().custom((value: string, { req }) => {
-    if (new Date(value) <= new Date(req.body['inital-date'])) {
+  body('room').isString().isIn(['Sala de Treinamento', 'Sala de Reunião']),
+  body('inital_date').isISO8601(),
+  body('final_Date').isISO8601().custom((value: string, { req }) => {
+    if (new Date(value) <= new Date(req.body.inital_date)) {
       throw new Error('Horário de término deve ser posterior ao horário de início.');
     }
     return true;
@@ -34,14 +33,13 @@ app.post('/create-appointments', [
     return; // Retornar após enviar a resposta
   }
 
-  const { name, car, placa, 'inital-date': inital_date, 'final-Date': final_Date } = req.body; // Desestruturar corretamente
+  const { name, room, inital_date, final_Date } = req.body;
 
   try {
     const newAppointment = await prisma.appointment.create({
       data: {
         name,
-        car,
-        placa,
+        room,
         inital_date: new Date(inital_date),
         final_Date: new Date(final_Date),
       },
