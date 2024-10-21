@@ -7,10 +7,11 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
-CREATE TABLE "Appointment" (
+CREATE TABLE "appointment" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
-    "room" TEXT NOT NULL,
+    "car" TEXT NOT NULL,
+    "placa" TEXT NOT NULL,
     "inital_date" TIMESTAMP(3) NOT NULL,
     "final_Date" TIMESTAMP(3) NOT NULL,
 
