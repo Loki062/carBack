@@ -16,7 +16,7 @@ app.get("/", (req: Request, res: Response): void => {
 });
 
 // Endpoint para criar agendamentos
-app.post('/create-appointment', [
+app.post('/create-Appointment', [
   body('name').isString().notEmpty(),
   body('car').isString().notEmpty(), // Adicione esta linha para o campo 'car'
   body('placa').isString().notEmpty(), // Adicione esta linha para o campo 'placa'
