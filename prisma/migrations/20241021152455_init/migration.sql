@@ -7,7 +7,7 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
-CREATE TABLE "appointment" (
+CREATE TABLE "Appointment" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "car" TEXT NOT NULL,

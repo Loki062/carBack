@@ -12,7 +12,7 @@ model User {
   name String
 }
 
-model Appointment {
+model CarAppointment {
   id          Int      @id @default(autoincrement())
   name        String
   car         String

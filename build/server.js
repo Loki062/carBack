@@ -11,18 +11,19 @@ app.use(cors());
 
 // Endpoint para a raiz
 app.get("/", (req, res) => {
-  res.send("Welcome to the API!");
+  res.send("Welcome to the Car Booking API!");
 });
 
-// Endpoint para criar agendamentos
-app.post('/create-appointments', async (req, res) => {
-    const { name, room, inital_date, final_Date } = req.body;
+// Endpoint para criar agendamentos de carros
+app.post('/create-car-appointments', async (req, res) => {
+    const { name, car, placa, inital_date, final_Date } = req.body;
 
     try {
-      const newAppointment = await prisma.appointment.create({
+      const newAppointment = await prisma.carAppointment.create({
         data: {
           name,
-          room,
+          car,
+          placa,
           inital_date: new Date(inital_date),
           final_Date: new Date(final_Date),
         },
@@ -30,19 +31,19 @@ app.post('/create-appointments', async (req, res) => {
 
       res.status(201).json(newAppointment);
     } catch (error) {
-      console.error("Erro ao criar agendamento:", error);
-      res.status(400).json({ error: "Erro ao criar agendamento." });
+      console.error("Erro ao criar agendamento de carro:", error);
+      res.status(400).json({ error: "Erro ao criar agendamento de carro." });
     }
 });
   
-// Endpoint para obter todos os agendamentos
-app.get("/appointments", async (req, res) => {
+// Endpoint para obter todos os agendamentos de carros
+app.get("/car-appointments", async (req, res) => {
   try {
-    const bookings = await prisma.appointment.findMany();
+    const bookings = await prisma.carAppointment.findMany();
     res.json(bookings);
   } catch (error) {
-    console.error("Erro ao buscar agendamentos:", error);
-    res.status(500).json({ error: "Erro ao buscar agendamentos" });
+    console.error("Erro ao buscar agendamentos de carros:", error);
+    res.status(500).json({ error: "Erro ao buscar agendamentos de carros" });
   }
 });
 
