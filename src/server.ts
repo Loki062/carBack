@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import express from "express";
+import express, { Request, Response } from "express";  // Importando os tipos Request e Response do Express
 import cors from "cors";
 
 const app = express();
@@ -10,12 +10,12 @@ app.use(express.json());
 app.use(cors());
 
 // Endpoint para a raiz
-app.get("/", (req, res) => {
+app.get("/", (req: Request, res: Response) => {
   res.send("Welcome to the Car Booking API!");
 });
 
 // Endpoint para criar agendamentos de carros
-app.post('/create-car-appointments', async (req, res) => {
+app.post('/create-car-appointments', async (req: Request, res: Response) => {
     const { name, car, placa, inital_date, final_Date } = req.body;
 
     // Log para verificar os dados recebidos
@@ -55,7 +55,7 @@ app.post('/create-car-appointments', async (req, res) => {
 });
   
 // Endpoint para obter todos os agendamentos de carros
-app.get("/car-appointments", async (req, res) => {
+app.get("/car-appointments", async (req: Request, res: Response) => {
   try {
     const bookings = await prisma.carappointment.findMany();
     res.json(bookings);
