@@ -19,7 +19,7 @@ app.post('/create-car-appointments', async (req, res) => {
     const { name, car, placa, inital_date, final_Date } = req.body;
 
     try {
-      const newAppointment = await prisma.carAppointment.create({
+      const newAppointment = await prisma.carappointment.create({
         data: {
           name,
           car,
@@ -39,7 +39,7 @@ app.post('/create-car-appointments', async (req, res) => {
 // Endpoint para obter todos os agendamentos de carros
 app.get("/car-appointments", async (req, res) => {
   try {
-    const bookings = await prisma.carAppointment.findMany();
+    const bookings = await prisma.carappointment.findMany();
     res.json(bookings);
   } catch (error) {
     console.error("Erro ao buscar agendamentos de carros:", error);
