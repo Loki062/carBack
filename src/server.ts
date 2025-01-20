@@ -18,21 +18,39 @@ app.get("/", (req, res) => {
 app.post('/create-car-appointments', async (req, res) => {
     const { name, car, placa, inital_date, final_Date } = req.body;
 
-    try {
-      const newAppointment = await prisma.carappointment.create({
-        data: {
-          name,
-          car,
-          placa,
-          inital_date: new Date(inital_date),
-          final_Date: new Date(final_Date),
-        },
-      });
+    // Log para verificar os dados recebidos
+    console.log("Dados recebidos:", req.body);
 
-      res.status(201).json(newAppointment);
+    // Validação simples para garantir que todos os campos estão presentes
+    if (!name || !car || !placa || !inital_date || !final_Date) {
+        return res.status(400).json({ error: "Todos os campos são obrigatórios." });
+    }
+
+    try {
+        // Verifica se as datas são válidas
+        const parsedInitialDate = new Date(inital_date);
+        const parsedFinalDate = new Date(final_Date);
+
+        // Valida se as datas são válidas
+        if (isNaN(parsedInitialDate.getTime()) || isNaN(parsedFinalDate.getTime())) {
+            return res.status(400).json({ error: "Datas inválidas fornecidas." });
+        }
+
+        // Cria o agendamento
+        const newAppointment = await prisma.carappointment.create({
+            data: {
+                name,
+                car,
+                placa,
+                inital_date: parsedInitialDate,
+                final_Date: parsedFinalDate,
+            },
+        });
+
+        res.status(201).json(newAppointment);
     } catch (error) {
-      console.error("Erro ao criar agendamento de carro:", error);
-      res.status(400).json({ error: "Erro ao criar agendamento de carro." });
+        console.error("Erro ao criar agendamento de carro:", error);
+        res.status(400).json({ error: "Erro ao criar agendamento de carro." });
     }
 });
   
