@@ -37,7 +37,7 @@ app.post('/create-car-appointments', async (req, res) => {
 });
   
 // Endpoint para obter todos os agendamentos de carros
-app.get("/car-appointments", async (req, res) => {
+app.get("/car-appointment", async (req, res) => {
   try {
     const bookings = await prisma.carappointment.findMany();
     res.json(bookings);
