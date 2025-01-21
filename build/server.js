@@ -7,43 +7,46 @@ const prisma = new PrismaClient();
 
 // Middleware
 app.use(express.json());
+
 app.use(cors());
+  
+app.use(express.json());
 
 // Endpoint para a raiz
 app.get("/", (req, res) => {
-  res.send("Welcome to the Car Booking API!");
+  res.send("Welcome to the Agendamentos API!");
 });
 
-// Endpoint para criar agendamentos de carros
-app.post('/create-car-appointments', async (req, res) => {
-    const { name, car, placa, inital_date, final_Date } = req.body;
+// Endpoint para criar agendamentos
+app.post('/create-agendamento', async (req, res) => {
+  const { name, car, placa, inital_date, final_Date } = req.body;
 
-    try {
-      const newAppointment = await prisma.carAppointment.create({
-        data: {
-          name,
-          car,
-          placa,
-          inital_date: new Date(inital_date),
-          final_Date: new Date(final_Date),
-        },
-      });
-
-      res.status(201).json(newAppointment);
-    } catch (error) {
-      console.error("Erro ao criar agendamento de carro:", error);
-      res.status(400).json({ error: "Erro ao criar agendamento de carro." });
-    }
-});
-  
-// Endpoint para obter todos os agendamentos de carros
-app.get("/car-appointments", async (req, res) => {
   try {
-    const bookings = await prisma.carAppointment.findMany();
-    res.json(bookings);
+    const newAgendamento = await prisma.agendamentos.create({
+      data: {
+        name,
+        car,
+        placa,
+        inital_date: new Date(inital_date),
+        final_Date: new Date(final_Date),
+      },
+    });
+
+    res.status(201).json(newAgendamento);
   } catch (error) {
-    console.error("Erro ao buscar agendamentos de carros:", error);
-    res.status(500).json({ error: "Erro ao buscar agendamentos de carros" });
+    console.error("Erro ao criar agendamento:", error);
+    res.status(400).json({ error: "Erro ao criar agendamento." });
+  }
+});
+
+// Endpoint para obter todos os agendamentos
+app.get("/agendamentos", async (req, res) => {
+  try {
+    const agendamentos = await prisma.agendamentos.findMany();
+    res.json(agendamentos);
+  } catch (error) {
+    console.error("Erro ao buscar agendamentos:", error);
+    res.status(500).json({ error: "Erro ao buscar agendamentos" });
   }
 });
 

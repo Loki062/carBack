@@ -8,12 +8,8 @@ const prisma = new PrismaClient();
 // Middleware
 app.use(express.json());
 
-app.use(cors({
-  origin: 'https://reservadecarros.netlify.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
-
+app.use(cors());
+  
 app.use(express.json());
 
 // Endpoint para a raiz
