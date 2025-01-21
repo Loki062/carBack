@@ -6,19 +6,13 @@
       "use": "@vercel/node"
     }
   ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "src/server.ts"
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://reservadecarros.netlify.app/"
+          "value": "https://reservadecarros.netlify.app"
         },
         {
           "key": "Access-Control-Allow-Methods",
@@ -29,6 +23,12 @@
           "value": "Content-Type, Authorization"
         }
       ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "src/server.ts"
     }
   ]
 }
