@@ -17,7 +17,7 @@ app.use(cors({
 app.use(express.json());
 
 // Endpoint para a raiz
-app.get("/Appointment", (req, res) => {
+app.get("/", (req, res) => {
   res.send("Welcome to the Car Booking API!");
 });
 
