@@ -12,7 +12,7 @@ model User {
   name String
 }
 
-model CarAppointment {
+model agendamentos {
   id          Int      @id @default(autoincrement())
   name        String
   car         String
@@ -20,5 +20,5 @@ model CarAppointment {
   inital_date DateTime
   final_Date  DateTime
 
- @@map("Appointment")
+ @@map("agendamentos")
 }
